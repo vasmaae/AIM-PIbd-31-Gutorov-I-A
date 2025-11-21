@@ -5,6 +5,8 @@ description = "AI Methods Labs"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "dask>=2025.11.0",
+    "distributed>=2025.11.0",
     "featuretools>=1.31.0",
     "imbalanced-learn>=0.14.0",
     "jupyter>=1.1.1",
