@@ -5,6 +5,7 @@ description = "AI Methods Labs"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "featuretools>=1.31.0",
     "imbalanced-learn>=0.14.0",
     "jupyter>=1.1.1",
     "matplotlib>=3.10.7",
