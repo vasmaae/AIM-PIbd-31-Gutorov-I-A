@@ -22,4 +22,5 @@ dependencies = [
     "scipy-stubs~=1.16.3",
     "seaborn>=0.13.2",
     "spacy>=3.8.13",
+    "scikit-fuzzy>=0.5.0",
 ]
