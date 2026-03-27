@@ -28,7 +28,9 @@ def draw_data_2d(
         ax.set_title(title)
     ax.set(xlabel=df.columns[col1], ylabel=df.columns[col2])
     if classes is not None:
-        ax.legend(scatter.legend_elements()[0], classes, loc="lower right", title="Classes")
+        ax.legend(
+            scatter.legend_elements()[0], classes, loc="lower right", title="Classes"
+        )
 
 
 def draw_dendrogram(linkage_matrix: np.ndarray) -> None:
@@ -126,7 +128,12 @@ def draw_elbow_diagram(inertias: List, clusters_range: range) -> None:
 
 
 def draw_silhouettes_diagram(silhouette: List, clusters_range: range) -> None:
-    _draw_cluster_scores(silhouette, clusters_range, "Значение коэффициента силуэта", "Даиграмма коэффициента силуэта")
+    _draw_cluster_scores(
+        silhouette,
+        clusters_range,
+        "Значение коэффициента силуэта",
+        "Даиграмма коэффициента силуэта",
+    )
 
 
 def _draw_silhouette(
@@ -239,7 +246,8 @@ def draw_silhouettes(reduced_data: np.ndarray, silhouettes: Dict) -> None:
         )
 
         plt.suptitle(
-            "Анализ коэффициента силуэта для алгоритма KMeans с числом кластеров n_clusters = %d" % n_clusters,
+            "Анализ коэффициента силуэта для алгоритма KMeans с числом кластеров n_clusters = %d"
+            % n_clusters,
             fontsize=14,
             fontweight="bold",
         )

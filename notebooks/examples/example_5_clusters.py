@@ -7,7 +7,9 @@ from sklearn import cluster
 from sklearn.metrics import silhouette_samples, silhouette_score
 
 
-def run_agglomerative(df: DataFrame, num_clusters: int | None = 2) -> cluster.AgglomerativeClustering:
+def run_agglomerative(
+    df: DataFrame, num_clusters: int | None = 2
+) -> cluster.AgglomerativeClustering:
     agglomerative = cluster.AgglomerativeClustering(
         n_clusters=num_clusters,
         compute_distances=True,
@@ -30,7 +32,9 @@ def get_linkage_matrix(model: cluster.AgglomerativeClustering) -> np.ndarray:
     return np.column_stack([model.children_, model.distances_, counts]).astype(float)
 
 
-def print_cluster_result(df: DataFrame, clusters_num: int, labels: np.ndarray, separator: str = ", ") -> None:
+def print_cluster_result(
+    df: DataFrame, clusters_num: int, labels: np.ndarray, separator: str = ", "
+) -> None:
     for cluster_id in range(clusters_num):
         cluster_indices = np.nonzero(labels == cluster_id)[0]
         print(f"Cluster {cluster_id + 1} ({len(cluster_indices)}):")
@@ -40,22 +44,31 @@ def print_cluster_result(df: DataFrame, clusters_num: int, labels: np.ndarray, s
         print("--------")
 
 
-def run_kmeans(df: DataFrame, num_clusters: int, random_state: int) -> Tuple[np.ndarray, np.ndarray]:
+def run_kmeans(
+    df: DataFrame, num_clusters: int, random_state: int
+) -> Tuple[np.ndarray, np.ndarray]:
     kmeans = cluster.KMeans(n_clusters=num_clusters, random_state=random_state)
     labels = kmeans.fit_predict(df)
     return labels, kmeans.cluster_centers_
 
 
-def fit_kmeans(reduced_data: np.ndarray, num_clusters: int, random_state: int) -> cluster.KMeans:
+def fit_kmeans(
+    reduced_data: np.ndarray, num_clusters: int, random_state: int
+) -> cluster.KMeans:
     kmeans = cluster.KMeans(n_clusters=num_clusters, random_state=random_state)
     kmeans.fit(reduced_data)
     return kmeans
 
 
-def _get_kmeans_range(df: DataFrame | np.ndarray, random_state: int) -> Tuple[List, range]:
+def _get_kmeans_range(
+    df: DataFrame | np.ndarray, random_state: int
+) -> Tuple[List, range]:
     max_clusters = int(math.sqrt(len(df)))
     clusters_range = range(2, max_clusters + 1)
-    kmeans_per_k = [cluster.KMeans(n_clusters=k, random_state=random_state).fit(df) for k in clusters_range]
+    kmeans_per_k = [
+        cluster.KMeans(n_clusters=k, random_state=random_state).fit(df)
+        for k in clusters_range
+    ]
     return kmeans_per_k, clusters_range
 
 
@@ -64,9 +77,13 @@ def get_clusters_inertia(df: DataFrame, random_state: int) -> Tuple[List, range]
     return [model.inertia_ for model in kmeans_per_k], clusters_range
 
 
-def get_clusters_silhouette_scores(df: DataFrame, random_state: int) -> Tuple[List, range]:
+def get_clusters_silhouette_scores(
+    df: DataFrame, random_state: int
+) -> Tuple[List, range]:
     kmeans_per_k, clusters_range = _get_kmeans_range(df, random_state)
-    return [float(silhouette_score(df, model.labels_)) for model in kmeans_per_k], clusters_range
+    return [
+        float(silhouette_score(df, model.labels_)) for model in kmeans_per_k
+    ], clusters_range
 
 
 def get_clusters_silhouettes(df: np.ndarray, random_state: int) -> Dict:
