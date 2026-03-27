@@ -23,4 +23,5 @@ dependencies = [
     "seaborn>=0.13.2",
     "spacy>=3.8.13",
     "scikit-fuzzy>=0.5.0",
+    "pygad>=3.5.0",
 ]
