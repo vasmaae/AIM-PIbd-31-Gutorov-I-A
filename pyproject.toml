@@ -26,4 +26,5 @@ dependencies = [
     "pygad>=3.5.0",
     "keras>=3.14.1",
     "torch>=2.11.0",
+    "keras-hub>=0.29.0",
 ]
